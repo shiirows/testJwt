@@ -1,77 +1,91 @@
 package com.example.demo.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
+@Table(	name = "users", 
+		uniqueConstraints = { 
+			@UniqueConstraint(columnNames = "username"),
+			@UniqueConstraint(columnNames = "email") 
+		})
 public class User {
-
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	
-    private Long id;
-	private String firstname;
-	private String name;
-	private Number age;
-	private Number codepostal;
-	private String mail;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@NotBlank
+	@Size(max = 20)
+	private String username;
+
+	@NotBlank
+	@Size(max = 50)
+	@Email
+	private String email;
+
+	@NotBlank
+	@Size(max = 120)
 	private String password;
-	private Boolean admin;
-	
-	
-	
-	
-	
-	public String getMail() {
-		return mail;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(	name = "user_roles", 
+				joinColumns = @JoinColumn(name = "user_id"), 
+				inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles = new HashSet<>();
+
+	public User() {
 	}
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
+
+	public User(String username, String email, String password) {
+		this.username = username;
+		this.email = email;
 		this.password = password;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
-	public String getFirstname() {
-		return firstname;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+
+	public String getUsername() {
+		return username;
 	}
-	public String getName() {
-		return name;
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public String getEmail() {
+		return email;
 	}
-	public Number getCodepostal() {
-		return codepostal;
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public void setCodepostal(Number codepostal) {
-		this.codepostal = codepostal;
+
+	public String getPassword() {
+		return password;
 	}
-	public Number getAge() {
-		return age;
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	public void setAge(Number age) {
-		this.age = age;
+
+	public Set<Role> getRoles() {
+		return roles;
 	}
-	public Boolean getAdmin() {
-		return admin;
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
-	public void setAdmin(Boolean admin) {
-		this.admin = admin;
-	}
-	
-	
-	
-	
 }
