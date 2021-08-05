@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.HashSet;
+
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -8,7 +9,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,10 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.models.ERole;
 import com.example.demo.models.Role;
 import com.example.demo.models.User;
-import com.example.demo.payload.request.LoginRequest;
-import com.example.demo.payload.request.SignupRequest;
-import com.example.demo.payload.response.JwtResponse;
-import com.example.demo.payload.response.MessageResponse;
+import com.example.demo.request.LoginRequest;
+import com.example.demo.request.SignupRequest;
+import com.example.demo.response.JwtResponse;
+import com.example.demo.response.MessageResponse;
 import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.jwt.JwtUtils;
